@@ -31,9 +31,9 @@ const users = [
 
 //Kom ihåg att både setup och seed måste köras separat. 
 
-async function userSeed() {
+function userSeed() {
     for (let user of users) {
-        await User.create({
+        User.create({
             password: bcrypt.hashSync(user.password, 10),
             email: user.email
         })
