@@ -25,6 +25,10 @@ User.findOneUser = (email, password) => {
 }
 
 
+
+
+// User.changeUserPassword = ()
+
 module.exports = User
 
 

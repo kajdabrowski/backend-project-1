@@ -1,9 +1,8 @@
 class UserError extends Error { }
 
 class InvalidBody extends UserError {
-    constructor(array) { //array avser fields i Davids video. 
+    constructor() { 
         super()
-        this.array = array
         this.message = 'Invalid body'
         this.errorCode = 400
     }
@@ -17,8 +16,18 @@ class InvalidLogin extends UserError{
     }
 }
 
+class ModelError extends UserError{
+    constructor(){
+        super()
+        this.message = 'Error with DB'
+        this.errorCode = 403
+    }
+}
+
+
 module.exports = {
     UserError,
     InvalidBody,
-    InvalidLogin
+    InvalidLogin,
+    ModelError
 }  

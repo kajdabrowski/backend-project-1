@@ -1,4 +1,4 @@
-const { InvalidLogin } = require("../errors")
+const { InvalidLogin, InvalidBody } = require("../errors")
 const usermodel = require("../models/usermodel")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -12,10 +12,6 @@ async function test(req, res, next) {
     res.json({ message: "sdfd" })
 
 }
-
-/*Login ej komplett. Måste finnas en validateToken, för den
-kommer behövas för andra funktioner. 
-*/
 
 async function loginUser(req, res, next) {
     try {
@@ -36,17 +32,36 @@ async function loginUser(req, res, next) {
 
 }
 
+function getUserInfo(req, res, next) {
+    const userEmail = req.body.email
+    res.json({ userEmail })
+}
 
-/* 
-loginUser i controller ska bara säga till när loginUser i model ska köras. loginUser i model 
-sköter authentication av  
-model ligger majoriteten av all logik som sköter inloggningen. 
 
-*/
+//Felhantering - invalidBody
+//Felhantering - Dålig connection med model. Skriv ny. 
+//Felhantering - Skickar in användare som inte finns. Skriv ny. 
 
+async function changeUserPassword(req, res, next) {
+    try {
+        //Tar emot mail från req
+        const userEmail = req.body.email
+        const newPassword = req.body.password
+        //Hashar lösenordet från req
+        const hashedNewPassword = bcrypt.hashSync(newPassword, 10)
+        //Uppdaterar lösenordet för den hittade/matchade användaren med det nya, hashade lösenordet
+       
+        await usermodel.update({ password: hashedNewPassword }, { where: { email: userEmail } })
+        // const updatedUser = await usermodel.findOne({where: {email: userEmail}})
+        // console.log(updatedUser);
+        res.json({ message: "Password changed successfully" })
+    } catch (error) { next(error) }
+}
 
 
 module.exports = {
     test,
-    loginUser
+    loginUser,
+    getUserInfo,
+    changeUserPassword,
 }

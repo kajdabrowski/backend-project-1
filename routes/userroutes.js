@@ -9,6 +9,8 @@ const userController = require('../controllers/userController')
 
 userroutes.post('/', userController.test)
 userroutes.post('/login', userController.loginUser)
+userroutes.get('/me', userController.getUserInfo)
+userroutes.patch('/me', userController.changeUserPassword)
 
 
 
