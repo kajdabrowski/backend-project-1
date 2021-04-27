@@ -1,7 +1,8 @@
 const db = require('../database/connection')
 const { DataTypes } = require('sequelize')
 const { InvalidLogin } = require('../errors')
-// const jwt = require('jsonwebtoken')
+const jwtauth = require('../middleware/jwtauth')
+const jwt = require('jsonwebtoken')
 // const bcrypt = require('bcrypt')
 
 const User = db.define('User', {
@@ -25,10 +26,20 @@ User.findOneUser = (email, password) => {
 }
 
 
+// Validerar token som tas emot från middlewaren jwtauth.
+// User.validateToken = (token) => {
+//     try{
+//         return jwt.verify(token, process.env.SECRET)
+//     } catch(error){
+//         throw new Error//Kan bytas ut mot bättre fel
+//     }
+// }
+
+
 
 
 // User.changeUserPassword = ()
 
-module.exports = User
+module.exports = User 
 
 
