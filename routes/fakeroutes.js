@@ -1,14 +1,10 @@
 const {Router} = require('express')
 const fakeroutes = new Router()
-// const faker = require('faker')
 const fakecontroller = require('../controllers/fakeController')
+const jwtauth = require('../middleware/jwtauth')
  
 
-fakeroutes.get('/faketest', (req, res) => {
-    console.log(req.user, "test");
-    res.json({message: "it works"})
-})
-fakeroutes.get('/generate', fakecontroller.generateFakes)
+fakeroutes.get('/generate', jwtauth, fakecontroller.generateFakes)
 
 
 module.exports = fakeroutes
