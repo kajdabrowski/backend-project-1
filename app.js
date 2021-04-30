@@ -6,6 +6,7 @@ const app = express()
 
 
 const userroutes = require('./routes/userroutes')
+const fakeroutes = require('./routes/fakeroutes')
 
 
 
@@ -16,6 +17,7 @@ app.use(express.json())
 const {errorHandler} = require('./middleware/errorHandler')
 
 app.use(userroutes)
+app.use(fakeroutes)
 
 app.use(errorHandler)
 
