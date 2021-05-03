@@ -14,6 +14,11 @@ const User = db.define('User', {
     password: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    fakelimit: {
+        type: DataTypes.NUMBER,
+        defaultValue: 0,
+        allowNull: false,
     }
 })
 
@@ -21,24 +26,11 @@ User.findOneUser = (email, password) => {
     return new Promise((resolve, reject) => {
         const user = User.findOne({ where: { email } })
         resolve(user)
-        if (!user) { reject(new InvalidLogin()) } 
+        if (!user) { reject(new InvalidLogin()) }
     })
 }
 
 
-// Validerar token som tas emot från middlewaren jwtauth.
-// User.validateToken = (token) => {
-//     try{
-//         return jwt.verify(token, process.env.SECRET)
-//     } catch(error){
-//         throw new Error//Kan bytas ut mot bättre fel
-//     }
-// }
-
-
-
-
-// User.changeUserPassword = ()
 
 module.exports = User 
 

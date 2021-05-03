@@ -10,7 +10,8 @@ const fakeroutes = require('./routes/fakeroutes')
 app.use(express.json())
 
 
-const {errorHandler} = require('./middleware/errorHandler')
+const { errorHandler } = require('./middleware/errorHandler')
+const { clearFakeLimit } = require('./middleware/jobs')
 
 app.use(userroutes)
 app.use(fakeroutes)
