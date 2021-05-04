@@ -11,7 +11,7 @@ app.use(express.json())
 
 
 const { errorHandler } = require('./middleware/errorHandler')
-const { clearFakeLimit } = require('./middleware/jobs')
+require('./middleware/jobs')
 
 app.use(userroutes)
 app.use(fakeroutes)

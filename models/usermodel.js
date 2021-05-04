@@ -1,5 +1,6 @@
 const db = require('../database/connection')
 const { DataTypes } = require('sequelize')
+const { Op } = require('sequelize')
 const { InvalidLogin } = require('../errors')
 const jwtauth = require('../middleware/jwtauth')
 const jwt = require('jsonwebtoken')
@@ -22,6 +23,10 @@ const User = db.define('User', {
     }
 })
 
+User.resetFakelimit = () => {
+    User.update({ fakelimit: 0 }, { where: { fakelimit: {[Op.ne]: 0}}})
+}
+
 User.findOneUser = (email, password) => {
     return new Promise((resolve, reject) => {
         const user = User.findOne({ where: { email } })
@@ -32,6 +37,6 @@ User.findOneUser = (email, password) => {
 
 
 
-module.exports = User 
+module.exports = User
 
 
